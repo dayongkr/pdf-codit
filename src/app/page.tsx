@@ -1,3 +1,9 @@
-export default function Home() {
-  return <main></main>
+import Read from '@/components/Read'
+
+export default async function Home() {
+  return (
+    <main>
+      <Read />
+    </main>
+  )
 }

@@ -1,11 +1,12 @@
 'use client'
 
-import * as pdfjs from 'pdfjs-dist'
-import 'pdfjs-dist/webpack'
+import type { PDFDocumentProxy } from 'pdfjs-dist'
 import { useEffect, useRef } from 'react'
 
 const getPDF = async () => {
   try {
+    const pdfjs = await import('pdfjs-dist')
+    await import('pdfjs-dist/webpack.mjs')
     const loadingTask = pdfjs.getDocument('./pa.pdf')
     const pdf = await loadingTask.promise
     console.log('PDF loaded')
@@ -16,7 +17,7 @@ const getPDF = async () => {
 }
 
 const renderPDF = async (
-  pdf: pdfjs.PDFDocumentProxy,
+  pdf: PDFDocumentProxy,
   canvasRef: React.RefObject<HTMLCanvasElement>
 ) => {
   try {

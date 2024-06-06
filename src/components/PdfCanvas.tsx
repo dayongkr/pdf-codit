@@ -1,5 +1,4 @@
-import { cn } from '@/lib/utils'
-import { PDFPageProxy } from 'pdfjs-dist'
+import type { PDFPageProxy } from 'pdfjs-dist'
 import { useEffect, useRef } from 'react'
 
 const renderPDF = async (

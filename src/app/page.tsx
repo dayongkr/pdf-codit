@@ -32,12 +32,12 @@ const getPDF = async (dataURL: string) => {
   return await loadingTask.promise
 }
 
-function viewFile(
+const viewFile = (
   file: File,
   router: AppRouterInstance,
   setPages: PdfState['setPages'],
   setCurrentPage: PdfState['setCurrentPage']
-) {
+) => {
   const reader = new FileReader()
 
   reader.onload = async function (e: ProgressEvent<FileReader>) {
@@ -63,7 +63,7 @@ function viewFile(
   reader.readAsDataURL(file)
 }
 
-function getFile(dataTransferItemList: DataTransferItemList) {
+const getFile = (dataTransferItemList: DataTransferItemList) => {
   if (dataTransferItemList.length > 1)
     throw new Error('Please drop only one file.')
 
@@ -80,13 +80,13 @@ function getFile(dataTransferItemList: DataTransferItemList) {
   return file
 }
 
-function dropHandler(
+const dropHandler = (
   e: DragEvent<HTMLDivElement>,
   router: AppRouterInstance,
   setPages: PdfState['setPages'],
   setCurrentPage: PdfState['setCurrentPage'],
   setHover: (hover: boolean) => void
-) {
+) => {
   e.preventDefault()
   try {
     const file = getFile(e.dataTransfer.items)

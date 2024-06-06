@@ -14,10 +14,10 @@ import {
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef } from 'react'
 
-function scrollToPreview(
+const scrollToPreview = (
   previewRef: React.RefObject<HTMLDivElement>,
   index: number
-) {
+) => {
   previewRef.current?.scrollTo({
     top: previewRef.current?.children[index].getBoundingClientRect().top,
     behavior: 'instant'

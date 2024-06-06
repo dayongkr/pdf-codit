@@ -1,24 +1,23 @@
+import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
+import { useRouter } from 'next/navigation'
 import type { PDFPageProxy } from 'pdfjs-dist'
 import { useEffect, useRef } from 'react'
+import { toast } from 'sonner'
 
 const renderPDF = async (
   page: PDFPageProxy,
   canvasRef: React.RefObject<HTMLCanvasElement>,
-  preview: boolean
+  preview: boolean,
+  router: AppRouterInstance
 ) => {
   try {
     const canvas = canvasRef.current
-    if (!canvas) {
-      console.log('Canvas not found')
-      return
-    }
+    if (!canvas) throw new Error('Canvas not found')
+
     const context = canvas.getContext('2d')
+    if (!context) throw new Error('Canvas context not found')
 
-    if (!context) {
-      console.log('Canvas context not found')
-      return
-    }
-
+    // Scale the PDF page to the canvas(0.5 for preview, 1.5 for full view)
     const viewport = page.getViewport({ scale: preview ? 0.5 : 1.5 })
     canvas.height = viewport.height
     canvas.width = viewport.width
@@ -29,9 +28,9 @@ const renderPDF = async (
     }
 
     await page.render(renderContext).promise
-    console.log('PDF rendered')
   } catch (error) {
-    console.log('Error rendering PDF:', error)
+    if (error instanceof Error) toast.error(error.message)
+    router.push('/')
   }
 }
 
@@ -43,10 +42,11 @@ export default function PdfCanvas({
   preview?: boolean
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const router = useRouter()
 
   useEffect(() => {
-    renderPDF(page, canvasRef, preview)
-  }, [page, canvasRef, preview])
+    renderPDF(page, canvasRef, preview, router)
+  }, [page, canvasRef, preview, router])
 
   return <canvas ref={canvasRef} className="m-auto w-full" />
 }

@@ -1,7 +1,7 @@
 import type { PDFPageProxy } from 'pdfjs-dist'
 import { create } from 'zustand'
 
-interface pdfState {
+export interface PdfState {
   pages: PDFPageProxy[]
   currentPage: number
   setPages: (pages: PDFPageProxy[]) => void
@@ -10,7 +10,7 @@ interface pdfState {
   decrementPage: () => void
 }
 
-export const pdfStore = create<pdfState>((set) => ({
+export const pdfStore = create<PdfState>((set) => ({
   pages: [],
   currentPage: 1,
   setPages: (pages) => {

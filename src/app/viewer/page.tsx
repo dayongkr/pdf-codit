@@ -14,6 +14,16 @@ import {
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef } from 'react'
 
+function scrollToPreview(
+  previewRef: React.RefObject<HTMLDivElement>,
+  index: number
+) {
+  previewRef.current?.scrollTo({
+    top: previewRef.current?.children[index].getBoundingClientRect().top,
+    behavior: 'instant'
+  })
+}
+
 export default function Viewerpage() {
   const previewRef = useRef<HTMLDivElement>(null)
   const { pages, currentPage, setCurrentPage, incrementPage, decrementPage } =
@@ -22,6 +32,7 @@ export default function Viewerpage() {
 
   useEffect(() => {
     if (!pages.length) {
+      // If there are no pages, redirect to the home page
       router.push('/')
     }
   }, [pages, router])
@@ -39,25 +50,21 @@ export default function Viewerpage() {
                 key={index}
                 className={cn(
                   'p-3',
-                  currentPage === index + 1 && 'border border-primary'
+                  currentPage === index + 1 && 'border-primary'
                 )}
-                onClick={() => {
-                  setCurrentPage(index + 1)
-                }}
+                onClick={() => setCurrentPage(index + 1)}
               >
                 <PdfCanvas page={page} preview />
               </Card>
             ))}
           </div>
           <div className="flex h-full w-full flex-col">
-            <header className="relative flex w-full items-center justify-center gap-3 border-b-4 border-b-secondary p-2">
+            <header className="relative flex w-full items-center justify-center gap-3 border-b-2 border-b-secondary p-2">
               <Button
                 className="absolute left-5"
                 variant="outline"
                 size="icon"
-                onClick={() => {
-                  router.push('/')
-                }}
+                onClick={() => router.push('/')}
               >
                 <HomeIcon />
               </Button>
@@ -66,18 +73,13 @@ export default function Viewerpage() {
                 size="icon"
                 onClick={() => {
                   decrementPage()
-                  previewRef.current?.scrollTo({
-                    top: previewRef.current?.children[
-                      currentPage - 2
-                    ].getBoundingClientRect().top,
-                    behavior: 'instant'
-                  })
+                  scrollToPreview(previewRef, currentPage - 2)
                 }}
                 disabled={currentPage === 1}
               >
                 <ArrowLeftIcon />
               </Button>
-              <span className="text-secondary-foreground">{currentPage}</span>
+              <span className="text-primary">{currentPage}</span>
               <span className="text-secondary-foreground opacity-50">
                 {' '}
                 of {pages.length}
@@ -87,12 +89,7 @@ export default function Viewerpage() {
                 size="icon"
                 onClick={() => {
                   incrementPage()
-                  previewRef.current?.scrollTo({
-                    top: previewRef.current?.children[
-                      currentPage
-                    ].getBoundingClientRect().top,
-                    behavior: 'instant'
-                  })
+                  scrollToPreview(previewRef, currentPage)
                 }}
                 disabled={currentPage === pages.length}
               >

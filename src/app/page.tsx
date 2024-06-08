@@ -110,7 +110,7 @@ export default function Home() {
         <CardHeader className="text-center">
           <CardTitle>PDF Viewer</CardTitle>
           <CardDescription className="text-xs text-muted-foreground">
-            Upload a your PDF file.
+            Upload your PDF file.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -129,7 +129,7 @@ export default function Home() {
             onDragLeave={() => setHover(false)}
           >
             <UploadIcon />
-            Drag & Drop your files here.
+            Drag & Drop your PDF file here.
           </div>
         </CardContent>
       </Card>

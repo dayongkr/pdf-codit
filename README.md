@@ -10,6 +10,7 @@
 
 - PDF 파일 Drag & Drop을 통한 업로드
   - `DataTransfer` 객체를 사용하여 Drag & Drop 기능을 구현
+    ![Error Message Screenshot](./assets/errorMsg.png)
   - 하나의 PDF 파일만 업로드 가능하며 예외 상황 발생 시 `shadcn-ui` 라이브러리의 `sonner` 컴포넌트를 사용하여 에러 메시지 표시
     - 예외 상황: 파일이 아닌 경우, PDF 파일이 아닌 경우, 여러 개의 파일을 업로드한 경우 등
 - PDF 파일 업로드 시 store에 저장

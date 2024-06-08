@@ -63,7 +63,9 @@ const viewFile = (
   reader.readAsDataURL(file)
 }
 
-const getFile = (dataTransferItemList: DataTransferItemList) => {
+const getFileFromDataTransfer = (
+  dataTransferItemList: DataTransferItemList
+) => {
   if (dataTransferItemList.length > 1)
     throw new Error('Please drop only one file.')
 
@@ -89,7 +91,7 @@ const dropHandler = (
 ) => {
   e.preventDefault()
   try {
-    const file = getFile(e.dataTransfer.items)
+    const file = getFileFromDataTransfer(e.dataTransfer.items)
     viewFile(file, router, setPages, setCurrentPage)
   } catch (error) {
     if (error instanceof Error) {

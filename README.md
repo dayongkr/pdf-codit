@@ -18,7 +18,7 @@
     - `pdfjs-dist` 라이브러리에서 사용되는 `Promise.withResolver`는 Node.js 안정화 버전에서는 지원되지 않고 `SWC`에서도 polyfill이 되지 않아 브라우저 환경에서만 가져와 사용하도록 `Dynamic Import`를 사용
     - 한글 폰트 지원을 위해 `pdfjs-dist` 라이브러리의 `CMap` 사용
 
-두 번째 페이지(`/viewer`)에서는 사용자가 업로드한 PDF 파일을 보여주는 페이지입니다. 해당 페이지에서 지원하는 기능은 다음과 같습니다.
+두 번째 페이지(`http://localhost:3000/viewer`)에서는 사용자가 업로드한 PDF 파일을 보여주는 페이지입니다. 해당 페이지에서 지원하는 기능은 다음과 같습니다.
 
 - PDF 페이지 보여주기
   - store에 PDF 정보가 없는 경우, `/` 페이지로 리다이렉트
